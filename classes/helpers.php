@@ -90,5 +90,14 @@ class Helpers {
 		
 		return $params[$name];
 	}
+	public static function getValidationErrors($errors)
+	{
+		$str = "<ul>";
+		foreach($errors as $error)
+		{
+			$str .= '<li>'.$error.'</li>';
+		}
+		return $str."</ul>";
+	}
 }
 ?>
