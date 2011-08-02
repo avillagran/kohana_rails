@@ -37,7 +37,18 @@ class Controller_Application extends Controller_Template {
 		{
 			$path = $this->request->controller() . "/" . $this->request->action(); 	
 		}
-		return View::factory($path);
+		$view = View::factory($path);
+		
+		$notice	= 	Notice::render(Notice::INFO).
+					Notice::render(Notice::ERROR).
+					Notice::render(Notice::WARNING).
+					Notice::render(Notice::VALIDATION).
+					Notice::render(Notice::SUCCESS);
+		 
+		$view->bind('notice', $notice);
+		$view->bind('errors', $errors);
+		
+		return $view;
 	}
 	public function params()
 	{
@@ -46,6 +57,37 @@ class Controller_Application extends Controller_Template {
 	public function param($name)
 	{
 		return Helpers::param($name);
+	}
+	public function notice($type, $message)
+	{
+		Notice::add($type, $message);
+	}
+	public function validToken()
+	{
+		return $this->param('token') == Security::token();
+	}
+	public function saveAndValidateModel($model, $values, $extra_validation = TRUE)
+	{
+		$valid = $this->validToken();
+		
+		try
+		{
+			if($valid && $extra_validation)
+			{
+				$model->values($values);
+				$model->save();
+				$created = true;
+			}
+			else
+				$valid = false;
+		}
+		catch(ORM_Validation_Exception $e)
+		{
+			$this->notice(Notice::VALIDATION, Helpers::getValidationErrors($e->errors('models')));
+			$valid = false;
+		}
+		
+		return $valid;
 	}
 }
 ?>
