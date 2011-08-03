@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 class Caller {
-	public static function call($url, $data, $referer='')
+	public static function call($url, $data=array(), $referer='')
 	{
 		// Convert the data array into URL Parameters like a=b&foo=bar etc.
 	    $data = http_build_query($data);
@@ -62,6 +62,22 @@ class Caller {
 	        'header' => $header,
 	        'content' => $content
 	    );
-	}		
+	}	
+	/**
+	 * Return json decoded value from call
+	 * @return array
+	 */
+	public static function json_call($url, $data=array(), $referer='')
+	{
+		$arr = NULL;
+		
+		$request = Caller::call($url, $data, $referer);
+		
+		if($request['status'] == 'ok')
+		{
+			$arr = json_decode( $request['content'], true );
+		}
+		return $arr;
+	}	
 }
 	

@@ -4,9 +4,9 @@ class Helpers {
     
     public static function link_to($url_or_route, $title=NULL, $attributes=NULL)
     {
-        return HTML::anchor(Helpers::getUrl($url_or_route), $title, $attributes);
+        return HTML::anchor(Helpers::get_url($url_or_route), $title, $attributes);
     }
-    public static function getUrl($url_or_route)
+    public static function get_url($url_or_route)
 	{
 		try {
             if($url_or_route != '/')
@@ -96,7 +96,7 @@ class Helpers {
 		
 		return $rtrn;
 	}
-	public static function getValidationErrors($errors)
+	public static function get_validation_errors($errors)
 	{
 		$str = "<ul>";
 		foreach($errors as $error)

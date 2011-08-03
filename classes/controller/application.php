@@ -8,7 +8,7 @@ class Controller_Application extends Controller_KRTemplate {
 	public $title;
 	public $sub_title;
 	public $menu;
-	private $config;
+	protected $config;
 	
 	public function before()
     {
@@ -28,12 +28,12 @@ class Controller_Application extends Controller_KRTemplate {
 		View::bind_global('menu', $this->menu);
 	    
 	}
-	public function setTitle($value)
+	public function set_title($value)
 	{
 		$this->sub_title = ' :: '.$value;	
 	}
 	
-	public function getView($path=NULL)
+	public function get_view($path=NULL)
 	{
 		if( $path == NULL )
 		{
