@@ -28,13 +28,13 @@ abstract class Controller_Base extends Controller {
 	{
 		Notice::add($type, $message);
 	}
-	protected function validToken()
+	protected function valid_token()
 	{
 		return $this->param('token') == Security::token();
 	}
-	protected function saveAndValidateModel($model, $values, $extra_validation = TRUE)
+	protected function save_and_validate_model($model, $values, $extra_validation = TRUE)
 	{
-		$valid = $this->validToken();
+		$valid = $this->valid_token();
 		
 		try
 		{
@@ -49,7 +49,7 @@ abstract class Controller_Base extends Controller {
 		}
 		catch(ORM_Validation_Exception $e)
 		{
-			$this->notice(Notice::VALIDATION, Helpers::getValidationErrors($e->errors('models')));
+			$this->notice(Notice::VALIDATION, Helpers::get_validation_errors(($e->errors('models'))));
 			$valid = false;
 		}
 		
