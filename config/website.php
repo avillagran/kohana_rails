@@ -3,5 +3,6 @@
 return array
 (
 	'site_name'	=> 'Site Name',
-	'menu'		=> array()
+	'menu'		=> array(),
+	'cookie_salt'  => 'example_cookie_salt-MUST-CHANGE'
 );

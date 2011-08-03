@@ -87,8 +87,14 @@ class Helpers {
 	public static function param($name)
 	{
 		$params = Helpers::params();
+		$rtrn = "";
 		
-		return $params[$name];
+		if(isset($params[$name]))
+		{
+			$rtrn = $params[$name];
+		}
+		
+		return $rtrn;
 	}
 	public static function getValidationErrors($errors)
 	{
