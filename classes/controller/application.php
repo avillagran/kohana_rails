@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Application extends Controller_Template {
+class Controller_Application extends Controller_KRTemplate {
 	
 	/**
 	 * Define el título del sitio
@@ -15,6 +15,8 @@ class Controller_Application extends Controller_Template {
     	parent::before();
 		
 		$this->config = Kohana::config('website');
+		
+		Cookie::$salt = $this->config['cookie_salt'];
 		
 		$this->title = $this->config['site_name'];
 		
@@ -50,44 +52,6 @@ class Controller_Application extends Controller_Template {
 		
 		return $view;
 	}
-	public function params()
-	{
-		return Helpers::params();
-	}
-	public function param($name)
-	{
-		return Helpers::param($name);
-	}
-	public function notice($type, $message)
-	{
-		Notice::add($type, $message);
-	}
-	public function validToken()
-	{
-		return $this->param('token') == Security::token();
-	}
-	public function saveAndValidateModel($model, $values, $extra_validation = TRUE)
-	{
-		$valid = $this->validToken();
-		
-		try
-		{
-			if($valid && $extra_validation)
-			{
-				$model->values($values);
-				$model->save();
-				$created = true;
-			}
-			else
-				$valid = false;
-		}
-		catch(ORM_Validation_Exception $e)
-		{
-			$this->notice(Notice::VALIDATION, Helpers::getValidationErrors($e->errors('models')));
-			$valid = false;
-		}
-		
-		return $valid;
-	}
+	
 }
 ?>
