@@ -40,15 +40,7 @@ class Controller_Application extends Controller_KRTemplate {
 			$path = $this->request->controller() . "/" . $this->request->action(); 	
 		}
 		$view = View::factory($path);
-		
-		$notice	= 	Notice::render(Notice::INFO).
-					Notice::render(Notice::ERROR).
-					Notice::render(Notice::WARNING).
-					Notice::render(Notice::VALIDATION).
-					Notice::render(Notice::SUCCESS);
-		 
 		$view->bind('notice', $notice);
-		$view->bind('errors', $errors);
 		
 		return $view;
 	}

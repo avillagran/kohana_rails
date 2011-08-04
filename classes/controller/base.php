@@ -72,4 +72,8 @@ abstract class Controller_Base extends Controller {
 		
 		return $this->to_json($output);
 	}
+	protected function redirect($url_or_route)
+	{
+		$this->request->redirect(Helpers::get_url($url_or_route));
+	}
 }
