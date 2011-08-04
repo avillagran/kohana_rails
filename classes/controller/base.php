@@ -76,4 +76,12 @@ abstract class Controller_Base extends Controller {
 	{
 		$this->request->redirect(Helpers::get_url($url_or_route));
 	}
+	protected function is_post_method()
+	{
+		return $this->request->method() == HTTP_Request::POST;
+	}
+	protected function is_get_method()
+	{
+		return $this->request->method() == HTTP_Request::GET;
+	}
 }
