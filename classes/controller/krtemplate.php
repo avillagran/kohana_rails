@@ -19,7 +19,35 @@ abstract class Controller_KRTemplate extends Controller_Base {
 		if ($this->auto_render === TRUE)
 		{
 			// Load the template
-			$this->template = View::factory($this->template);
+			$view = View::factory($this->template);
+			
+			$notices_arr = Notice::as_array(); 
+			
+			$notice = "";
+			
+			foreach($notices_arr as $key => $item)
+			{
+				$notice .= '<div class="notification '.$key.'">';
+				foreach($item as $msg)
+				{
+					$notice .= $msg['message'];
+				}
+				$notice .= '</div>';
+				
+				Notice::clear($key);
+			}
+				
+			/*
+				Notice::render(Notice::INFO).
+				Notice::render(Notice::ERROR).
+				Notice::render(Notice::WARNING).
+				Notice::render(Notice::VALIDATION).
+				Notice::render(Notice::SUCCESS);
+			 */
+		 
+			$view->bind('notice', $notice);
+
+			$this->template = $view; 
 		}
 
 		return parent::before();
