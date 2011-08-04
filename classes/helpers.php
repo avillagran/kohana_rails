@@ -6,6 +6,14 @@ class Helpers {
     {
         return HTML::anchor(Helpers::get_url($url_or_route), $title, $attributes);
     }
+	public static function render_partial($path)
+	{
+		$view = View::factory($path);
+		$str = "Partial file not exists";
+		if($view)
+			 $str = $view->render();
+		return $str;
+	}
     public static function get_url($url_or_route)
 	{
 		try {
