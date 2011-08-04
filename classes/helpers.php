@@ -30,7 +30,7 @@ class Helpers {
         $val = array_search(Request::current()->route(), Route::all());
         $val = str_replace('/', '', $val);
         
-        $val = '/'.$val;
+        //$val = '/'.$val;
         
         return $val;
     }
