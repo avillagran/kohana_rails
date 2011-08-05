@@ -32,9 +32,9 @@ abstract class Controller_Base extends Controller {
 	{
 		return $this->param('token') == Security::token();
 	}
-	protected function save_and_validate_model($model, $values, $extra_validation = TRUE)
+	protected function save_and_validate_model($model, $values, $extra_validation = TRUE, $remote = FALSE)
 	{
-		$valid = $this->valid_token();
+		$valid = ( $remote ? $remote : $this->valid_token() );
 		
 		try
 		{
