@@ -4,7 +4,7 @@ class Helpers {
     
     public static function link_to($url_or_route, $title=NULL, $attributes=NULL)
     {
-        return HTML::anchor(Helpers::get_url($url_or_route), $title, $attributes);
+        return UrlHelpers::link_to($url_or_route, $title, $attributes);
     }
 	public static function render_partial($path)
 	{
@@ -112,6 +112,10 @@ class Helpers {
 			$str .= '<li>'.$error.'</li>';
 		}
 		return $str."</ul>";
+	}
+	public static function config_value($group, $name)
+	{
+		return Arr::get(Kohana::config($group), $name, NULL);
 	}
 }
 ?>
