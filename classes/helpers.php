@@ -87,8 +87,8 @@ class Helpers {
 	public static function params()
 	{
 		$params = array();
-		if($_GET) $params = $_GET;
-		if($_POST) $params = $_POST;
+		if($_GET) $params = array_merge($params, $_GET);
+		if($_POST) $params = array_merge($params, $_POST);
 		
 		return $params;
 	}
