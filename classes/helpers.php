@@ -25,6 +25,11 @@ class Helpers {
 		
 		return $url_or_route;
 	}
+	public static function clear_url_hash($url)
+	{
+		$tmp = explode('#',$url);
+		return $tmp[0];
+	}
     public static function current_controller()
     {
         $val = array_search(Request::current()->route(), Route::all());
