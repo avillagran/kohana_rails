@@ -44,6 +44,15 @@ class Controller_Application extends Controller_KRTemplate {
 		
 		return $view;
 	}
+		/**
+	 * 
+	 * Imprime las cabezeras para permitir conexión via AJAX
+	 */
+	protected function allowed_header($is_allowed)
+	{
+		if($is_allowed)
+			header('Access-Control-Allow-Origin: *');
+	}
 	
 }
 ?>
