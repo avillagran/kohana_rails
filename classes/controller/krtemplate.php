@@ -30,6 +30,7 @@ abstract class Controller_KRTemplate extends Controller_Base {
 				$notice .= '<div class="notification '.$key.'">';
 				foreach($item as $msg)
 				{
+					$notice .= "<h3>" . __($key) . "</h3>";  
 					$notice .= $msg['message'];
 				}
 				$notice .= '</div>';
