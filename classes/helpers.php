@@ -25,6 +25,22 @@ class Helpers {
 		
 		return $url_or_route;
 	}
+	public static function cache_url($uri = null, $params = null)
+	{
+		if($uri == null) $uri = Request::detect_uri();
+		if($params == null) $params = Helpers::params();
+		
+		$url = $uri;
+		foreach($params as $k => $v)
+		{
+			if($k != "_")
+			{
+				$url .= ($url == $uri ? '?' : '&') . $k . "=" . urlencode($v);
+			}
+		}
+		if($url[0] == "/") $url = substr($url, 1);
+		return $url; 
+	}
 	public static function clear_url_hash($url)
 	{
 		$tmp = explode('#',$url);
