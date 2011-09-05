@@ -8,6 +8,8 @@ class Controller_Application extends Controller_KRTemplate {
 	public $title;
 	public $sub_title;
 	public $menu;
+	public $session;
+	
 	protected $config;
 	
 	public function before()
@@ -26,7 +28,8 @@ class Controller_Application extends Controller_KRTemplate {
 		
 		$this->menu = $this->config['menu'];
 		View::bind_global('menu', $this->menu);
-	    
+		
+		$this->session = Session::instance();
 	}
 	public function set_title($value)
 	{
@@ -37,14 +40,18 @@ class Controller_Application extends Controller_KRTemplate {
 	{
 		if( $path == NULL )
 		{
-			$path = $this->request->controller() . "/" . $this->request->action(); 	
+			$path = (strlen($this->request->directory()) > 0 ? $this->request->directory() . "/" : '') . $this->request->controller() . "/" . $this->request->action(); 	
 		}
 		$view = View::factory($path);
 		$view->bind('notice', $notice);
-		
+				
 		return $view;
 	}
-		/**
+	public function set_view($view)
+	{
+		$this->template->content = $view;
+	}
+	/**
 	 * 
 	 * Imprime las cabezeras para permitir conexión via AJAX
 	 */
