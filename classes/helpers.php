@@ -1,7 +1,16 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 class Helpers {
-    
+    public static function or_str($first=NULL, $replace="")
+	{
+		if(!is_string($first))
+			return $replace;
+		
+		if(is_null($first) || strlen($first) == 0)
+			$first = $replace;
+		
+		return $first;
+	}
     public static function link_to($url_or_route, $title=NULL, $attributes=NULL)
     {
         return UrlHelpers::link_to($url_or_route, $title, $attributes);
@@ -17,7 +26,7 @@ class Helpers {
     public static function get_url($url_or_route)
 	{
 		try {
-            if($url_or_route != '/')
+            if($url_or_route != '/' && substr($url_or_route, 0, 1) != '/' )
                 $url_or_route = Route::url($url_or_route);
         } catch (Exception $exc) { }
 		
