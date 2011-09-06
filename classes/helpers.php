@@ -108,6 +108,15 @@ class Helpers {
 	{
 		return Helpers::hidden_field($name, Security::token(true), $attributes);
 	}
+	public static function cycle($array, $context = null)
+	{
+		global $cycles;
+		if (!$context)
+			$context = 'default';
+		if (!isset($cycles[$context]))
+			$cycles[$context] = 0;
+		return $array[$cycles[$context]++ % count($array)];
+	}
 	public static function name_to_id($name)
 	{
 		$name = str_replace("[", "_", $name);
@@ -122,10 +131,10 @@ class Helpers {
 		
 		return $params;
 	}
-	public static function param($name)
+	public static function param($name, $default = NULL)
 	{
 		$params = Helpers::params();
-		$rtrn = "";
+		$rtrn = $default;
 		
 		if(isset($params[$name]))
 		{

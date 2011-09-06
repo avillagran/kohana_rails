@@ -20,9 +20,9 @@ abstract class Controller_Base extends Controller {
 	{
 		return Helpers::params();
 	}
-	protected function param($name)
+	protected function param($name, $default = NULL)
 	{
-		return Helpers::param($name);
+		return Helpers::param($name, $default);
 	}
 	protected function notice($type, $message)
 	{
