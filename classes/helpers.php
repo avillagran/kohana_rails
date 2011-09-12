@@ -15,12 +15,28 @@ class Helpers {
     {
         return UrlHelpers::link_to($url_or_route, $title, $attributes);
     }
-	public static function render_partial($path)
+	/**
+	 * Render partial with possible variables
+	 * $vars = array( 'name' => $name )
+	 * 
+	 * return String
+	 */
+	public static function render_partial($path, $vars = array() )
 	{
 		$view = View::factory($path);
 		$str = "Partial file not exists";
 		if($view)
-			 $str = $view->render();
+		{
+			$str = $view->render();
+			
+			if( count($vars) > 0 )
+			{
+				foreach($vars as $k => $v)
+				{
+					$view->bind($k, $v); 
+				}
+			}
+		}
 		return $str;
 	}
     public static function get_url($url_or_route)
@@ -55,6 +71,19 @@ class Helpers {
 		$tmp = explode('#',$url);
 		return $tmp[0];
 	}
+	/**
+	 * Return a string if $is_in is the same request path as current
+	 */
+	public static function current_string($is_in, $current_string = 'class="current"')
+	{
+		$route = Helpers::get_url($is_in);
+
+		$curr_route = array_search(Request::current()->route(), Route::all());
+		$curr_route = Helpers::get_url($curr_route);
+				
+		return $route == $curr_route ? $current_string : '';
+	}
+	
     public static function current_controller()
     {
         $val = array_search(Request::current()->route(), Route::all());
