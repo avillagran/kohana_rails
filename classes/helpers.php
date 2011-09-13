@@ -25,18 +25,20 @@ class Helpers {
 	{
 		$view = View::factory($path);
 		$str = "Partial file not exists";
+		
 		if($view)
 		{
-			$str = $view->render();
-			
 			if( count($vars) > 0 )
 			{
 				foreach($vars as $k => $v)
 				{
-					$view->bind($k, $v); 
+					$view->$k = $v; 
 				}
 			}
+			
+			$str = $view->render();
 		}
+		
 		return $str;
 	}
     public static function get_url($url_or_route)
