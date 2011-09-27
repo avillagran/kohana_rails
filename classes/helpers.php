@@ -117,7 +117,8 @@ class Helpers {
 	{
 		$str = Helpers::label_field($name, $label, $label_attributes);
 		
-		$input_attributes['id'] = Helpers::name_to_id($name);
+		if( !array_key_exists('id', $input_attributes) )
+			$input_attributes['id'] = Helpers::name_to_id($name);
 		$str .= " " . Form::input($name, $value, $input_attributes);
 		
 		return $str;
@@ -126,7 +127,8 @@ class Helpers {
 	{
 		$str = Helpers::label_field($name, $label, $label_attributes);
 		
-		$input_attributes['id'] = Helpers::name_to_id($name);
+		if( !array_key_exists('id', $input_attributes) )
+			$input_attributes['id'] = Helpers::name_to_id($name);
 		$str .= " " . Form::password($name, $value, $input_attributes);
 		
 		return $str;
