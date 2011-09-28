@@ -187,5 +187,11 @@ class Helpers {
 	{
 		return Arr::get(Kohana::config($group), $name, NULL);
 	}
+	public static function debug()
+	{
+		$content = View::factory('profiler/stats');
+		echo $content;
+		return $content;
+	}
 }
 ?>
