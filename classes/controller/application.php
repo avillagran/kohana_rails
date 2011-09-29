@@ -31,6 +31,11 @@ class Controller_Application extends Controller_KRTemplate {
 		
 		$this->session = Session::instance();
 	}
+	public function __destruct()
+	{
+		if( Kohana::$environment == Kohana::DEVELOPMENT )
+			Kohana::$log->add(Log::INFO, $_SERVER['REQUEST_URI']);
+	}
 	public function set_title($value)
 	{
 		$this->sub_title = ' :: '.$value;	
