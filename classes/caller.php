@@ -1,6 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 class Caller {
+	
 	public static function call($url, $data=array(), $referer='')
 	{
 		// Convert the data array into URL Parameters like a=b&foo=bar etc.
@@ -55,7 +56,6 @@ class Caller {
 	 
 	    $header = isset($result[0]) ? $result[0] : '';
 	    $content = isset($result[1]) ? $result[1] : '';
-	 
 	    // return as structured array:
 	    return array(
 	        'status' => 'ok',
@@ -73,11 +73,32 @@ class Caller {
 		
 		$request = Caller::call($url, $data, $referer);
 		
+		Helpers::log("REQUEST \r " . var_export($request['content'], true) . "\r");
+		
 		if($request['status'] == 'ok')
 		{
-			$arr = json_decode( $request['content'], true );
+			$content = $request['content'];
+			
+			$arr = json_decode( self::clean_json($content), true );
 		}
 		return $arr;
 	}	
+	private static function clean_json($content)
+	{
+		$content = trim( $content );
+		$pre 	= substr($content, 0, 3);
+		$post 	= substr($content, strlen($content)-1);
+		
+		if( $pre  === "14d" )
+		{
+			$content = substr($content, 3);
+		}	
+		if( $post === "0" )
+		{
+			$content = substr($content, 0, strlen($content)-1);
+		}
+		
+		return trim( $content );
+	}
 }
 	
