@@ -85,20 +85,8 @@ class Caller {
 	}	
 	private static function clean_json($content)
 	{
-		$content = trim( $content );
-		$pre 	= substr($content, 0, 3);
-		$post 	= substr($content, strlen($content)-1);
-		
-		if( $pre  === "14d" )
-		{
-			$content = substr($content, 3);
-		}	
-		if( $post === "0" )
-		{
-			$content = substr($content, 0, strlen($content)-1);
-		}
-		
-		return trim( $content );
+		preg_match("([\[{].*[\]}])", $content, $output);
+		return trim( $output[0] );
 	}
 }
 	
