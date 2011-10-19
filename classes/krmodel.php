@@ -20,4 +20,14 @@ abstract class Krmodel extends ORM {
 	
 		parent::update($validation);
 	}
+	public function get_url()
+	{
+		$params = array('controller' => $this->_table_name, 'action' => 'show');
+
+		$rname = UrlHelpers::get_route($params);
+		
+		$url = Route::get($rname)->uri( $params + array('id' => $this->id) );
+		
+		return $url;
+	}
 }
