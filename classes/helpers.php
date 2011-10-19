@@ -199,16 +199,5 @@ class Helpers {
 	{
 		Kohana::$log->add($kind, $data);
 	}
-	public static function current_uri_controller()
-    {
-        $uri_controller = "";
-        switch(Request::current()->controller()) {
-            case "events":
-                $uri_controller = "eventos";
-                break;
-        }
-        
-        return $uri_controller;
-    }
 }
 ?>
