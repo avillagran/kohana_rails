@@ -15,5 +15,30 @@ class UrlHelpers {
 
 		return $hostname; 
 	}
+	public static function get_route(array $params)
+	{
+		
+		$found = NULL;
+		
+		$found = self::search_route($params);
+		
+		if($found == NULL && isset($params['action']))
+		{
+			unset($params['action']);
+			$found = self::search_route($params);
+		}
+		
+		return $found == NULL ? 'default' : $found;
+	}
+	private static function search_route($params)
+	{
+		$routes = Route::all();
+		foreach($routes as $name => $route)
+		{
+			if($route->matches( Request::$initial->uri($params) ) && $name != "default" )
+				return $name;
+		}
+		return NULL;
+	}
 
 }
