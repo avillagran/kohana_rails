@@ -176,6 +176,13 @@ class Helpers {
 		
 		return $rtrn;
 	}
+	public static function get($array, $keyname, $default = NULL)
+    {
+        if( isset($array[$keyname]) && !empty($array[$keyname]))
+            return $array[$keyname];
+
+        return $default;
+    }
 	public static function get_validation_errors($errors)
 	{
 		$str = "<ul>";
