@@ -206,5 +206,10 @@ class Helpers {
 	{
 		Kohana::$log->add($kind, $data);
 	}
+	public static function get_uri($route, $params = array())
+    {
+        $route = Route::get($route);
+        return "/" . $route->uri($params);
+    }
 }
 ?>
